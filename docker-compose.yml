@@ -15,13 +15,31 @@ services:
     network_mode: "host"
     build:
       context: ./
-      dockerfile: Dockerfile
+      dockerfile: DockerfileDjango
     env_file:
       - .env
     # environment:
     #   - POSTGRES_HOST=postgres_local
     expose:
       - "8000"
+    volumes:
+      - ./:/app
+    tty: true
+    depends_on:
+      - postgres_local
+
+
+  nuxt_front:
+    image: nuxtfront
+    network_mode: "host"
+    build:
+      context: ./
+      dockerfile: DockerfileNuxt
+    env_file:
+      - .env
+    # environment:
+    #   - POSTGRES_HOST=postgres_local
+    expose:
       - "3000"
     volumes:
       - ./:/app
